@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="string," />
+  <meta name="keywords" content="kafka,zookeeper," />
 
 
 
@@ -102,17 +102,37 @@
 
 
 
-<meta name="description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta name="keywords" content="string">
+<meta name="description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta name="keywords" content="kafka,zookeeper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符串">
-<meta property="og:url" content="https://swqwer.github.io/2015/04/28/字符串/index.html">
+<meta property="og:title" content="kafka-environment-build">
+<meta property="og:url" content="https://swqwer.github.io/2017/05/02/kafka-environment-build/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta property="og:updated_time" content="2017-04-28T07:55:43.462Z">
+<meta property="og:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta property="og:image" content="https://swqwer.github.io/img/downloadkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/localkafkadir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkamaindir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkabindir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkabinwindows.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkazookeeperconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/zookeeperconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkaconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkaserverconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startzookeeper.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedzookeeper.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedcreatedir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/createdtopic.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedconsumer.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedproducer.png">
+<meta property="og:image" content="https://swqwer.github.io/img/allcmd.png">
+<meta property="og:image" content="https://swqwer.github.io/img/helloworld.png">
+<meta property="og:updated_time" content="2017-05-02T10:36:05.643Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符串">
-<meta name="twitter:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
+<meta name="twitter:title" content="kafka-environment-build">
+<meta name="twitter:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta name="twitter:image" content="https://swqwer.github.io/img/downloadkafka.png">
 
 
 
@@ -140,13 +160,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2015/04/28/字符串/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/05/02/kafka-environment-build/"/>
 
 
 
 
 
-  <title> 字符串 | tryMore </title>
+  <title> kafka-environment-build | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -275,7 +295,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2015/04/28/字符串/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/05/02/kafka-environment-build/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="swqwer">
@@ -296,7 +316,7 @@
             
             
               
-                字符串
+                kafka-environment-build
               
             
           </h1>
@@ -311,8 +331,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-28T15:30:55+08:00">
-                2015-04-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T17:14:05+08:00">
+                2017-05-02
               </time>
             
 
@@ -334,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">kafka</span>
                   </a>
                 </span>
 
@@ -368,36 +388,59 @@
       
 
       
-        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。</p>
+        <p>windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。</p>
 <a id="more"></a>
-<h2 id="char数组"><a href="#char数组" class="headerlink" title="char数组"></a>char数组</h2><p>首先它里面存储数据的数据结构是char数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
-<h2 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h2><p>注意，在重写equals方法时，需要按照以下几个规则设计：</p>
-<p>1自反性 ：对任意引用值X，x.equals(x)的返回值一定为true.<br>2对称性： 对于任何引用值x,y,当且仅当y.equals(x)返回值为true时，x.equals(y)的返回值一定为true;<br>3传递性：如果x.equals(y)=true, y.equals(z)=true,则x.equals(z)=true<br>4一致性：如果参与比较的对象没任何改变，则对象比较的结果也不应该有任何改变<br>5非空性：任何非空的引用值X，x.equals(null)的返回值一定为false</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</div><div class="line">           String anotherString = (String)anObject;</div><div class="line">           <span class="keyword">int</span> n = value.length;</div><div class="line">           <span class="keyword">if</span> (n == anotherString.value.length) &#123;</div><div class="line">               <span class="keyword">char</span> v1[] = value;</div><div class="line">               <span class="keyword">char</span> v2[] = anotherString.value;</div><div class="line">               <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">               <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</div><div class="line">                   <span class="keyword">if</span> (v1[i] != v2[i])</div><div class="line">                       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                   i++;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h2 id="intern方法"><a href="#intern方法" class="headerlink" title="intern方法"></a>intern方法</h2><p>先来看下java 源码的注释：</p>
-<pre><code>/**
-* Returns a canonical representation for the string object.
-* &lt;p&gt;
-* A pool of strings, initially empty, is maintained privately by the
-* class {@code String}.
-* &lt;p&gt;
-* When the intern method is invoked, if the pool already contains a
-* string equal to this {@code String} object as determined by
-* the {@link #equals(Object)} method, then the string from the pool is
-* returned. Otherwise, this {@code String} object is added to the
-* pool and a reference to this {@code String} object is returned.
-* &lt;p&gt;
-* It follows that for any two strings {@code s} and {@code t},
-* {@code s.intern() == t.intern()} is {@code true}
-* if and only if {@code s.equals(t)} is {@code true}.
-* &lt;p&gt;
-* All literal strings and string-valued constant expressions are
-* interned. String literals are defined in section 3.10.5 of the
-* &lt;cite&gt;The Java&amp;trade; Language Specification&lt;/cite&gt;.
-*/
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>String的equals方法和intern方法是平时开发中会忽略的地方。加深印象。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>官网下载<a href="http://kafka.apache.org/downloads" target="_blank" rel="external">kafka下载</a></p>
+<p><img src="/img/downloadkafka.png" alt=""></p>
+<p>我本地使用的版本是kafka_2.10-0.10.2.0下载下来后放到某一盘符 我是在D盘新建一个文件夹zk_kafka把文件解压到此如下图所示</p>
+<p><img src="/img/localkafkadir.png" alt=""></p>
+<p>进入kafka目录我们可以发现 此版本的kafka已集成了zookeeper所以我们无需再另外单独下载zookeeper具体如下图所示</p>
+<p><img src="/img/kafkamaindir.png" alt=""></p>
+<p><img src="/img/kafkabindir.png" alt=""></p>
+<p>由于我是在windows上搭建所以等会我们就是用bin/windows下的bat</p>
+<p><img src="/img/kafkabinwindows.png" alt=""></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="修改zookeeper配置文件"><a href="#修改zookeeper配置文件" class="headerlink" title="修改zookeeper配置文件"></a>修改zookeeper配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录</p>
+<p><img src="/img/kafkazookeeperconfig.png" alt=""></p>
+<p>修改datadir保存默认端口2181</p>
+<p><img src="/img/zookeeperconfig.png" alt=""></p>
+<h3 id="修改kafka-server配置文件"><a href="#修改kafka-server配置文件" class="headerlink" title="修改kafka-server配置文件"></a>修改kafka-server配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录kafkaconfig.png</p>
+<p><img src="/img/kafkaconfig.png" alt=""></p>
+<p>修改log.dirs</p>
+<p><img src="/img/kafkaserverconfig.png" alt=""></p>
+<h3 id="producer和consumer配置文件"><a href="#producer和consumer配置文件" class="headerlink" title="producer和consumer配置文件"></a>producer和consumer配置文件</h3><p>如果没有改动zookeeper端口无需修改配置文件 我们就默认使用它的配置文件无需修改</p>
+<h3 id="启动zookeeper"><a href="#启动zookeeper" class="headerlink" title="启动zookeeper"></a>启动zookeeper</h3><p>进入kafka_2.10-0.10.2.0我本地使用的 git bash 使用windows7系统自带的同意可以。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties</div></pre></td></tr></table></figure>
+<p>如下如所示</p>
+<p><img src="/img/startzookeeper.png" alt=""></p>
+<p>回车 执行 如下图所示</p>
+<p><img src="/img/startedzookeeper.png" alt=""></p>
+<h3 id="启动kafka"><a href="#启动kafka" class="headerlink" title="启动kafka"></a>启动kafka</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-server-start.bat ./config/server.properties</div></pre></td></tr></table></figure>
+<p>如下如所示</p>
+<p><img src="/img/startkafka.png" alt=""></p>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedkafka.png" alt=""></p>
+<p>启动kafka和zookeeper后 会根据刚才配置文件设置的产生文件夹</p>
+<p>如下如所示</p>
+<p><img src="/img/startedcreatedir.png" alt=""></p>
+<h3 id="创建topic"><a href="#创建topic" class="headerlink" title="创建topic"></a>创建topic</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">2</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/createdtopic.png" alt=""></p>
+<h3 id="启动consumer客户端"><a href="#启动consumer客户端" class="headerlink" title="启动consumer客户端"></a>启动consumer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-consumer.bat --zookeeper localhost:<span class="number">2181</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedconsumer.png" alt=""></p>
+<h3 id="启动producer客户端"><a href="#启动producer客户端" class="headerlink" title="启动producer客户端"></a>启动producer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-producer.bat --broker-list localhost:<span class="number">9092</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedproducer.png" alt=""></p>
+<p>到此有四个命令窗口 分别为 zookeeper 、kafka、consumer、producer</p>
+<p><img src="/img/allcmd.png" alt=""></p>
+<p>在producer窗口输入helloworld同时在consumer中就能看到</p>
+<p>如下图所示</p>
+<p><img src="/img/helloworld.png" alt=""></p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>到此kafka环境搭建完毕。</p>
 
       
     </div>
@@ -443,7 +486,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/string/" rel="tag"># string</a>
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
           
         </div>
       
@@ -456,15 +501,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/17/other/" rel="next" title="the one">
-                <i class="fa fa-chevron-left"></i> the one
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/21/test/" rel="prev" title="test">
+                test <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -631,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#char数组"><span class="nav-number">1.1.</span> <span class="nav-text">char数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals方法"><span class="nav-number">1.2.</span> <span class="nav-text">equals方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern方法"><span class="nav-number">1.3.</span> <span class="nav-text">intern方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改zookeeper配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">修改zookeeper配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改kafka-server配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">修改kafka-server配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#producer和consumer配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">producer和consumer配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动zookeeper"><span class="nav-number">2.4.</span> <span class="nav-text">启动zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动kafka"><span class="nav-number">2.5.</span> <span class="nav-text">启动kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建topic"><span class="nav-number">2.6.</span> <span class="nav-text">创建topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动consumer客户端"><span class="nav-number">2.7.</span> <span class="nav-text">启动consumer客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动producer客户端"><span class="nav-number">2.8.</span> <span class="nav-text">启动producer客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
             
 
           </div>
