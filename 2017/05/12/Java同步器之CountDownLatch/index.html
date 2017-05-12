@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="string," />
+  <meta name="keywords" content="concurrent," />
 
 
 
@@ -102,17 +102,17 @@
 
 
 
-<meta name="description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta name="keywords" content="string">
+<meta name="description" content="从这篇开始准备写下Java同步器系列 我们知道Java为我们提供了synchronized关键字对临界区进行线程同步访问。但是它有缺陷很难正确的编写同步代码,但是Java并发包提供了高级的同步器即控制通用的同步方法的类,有这么几个同步器: 倒计时 countdownlatch, 同步屏障 cyclic barrier,交换器 exchanger,信号量 semaphore , phaser同步器。">
+<meta name="keywords" content="concurrent">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符串">
-<meta property="og:url" content="https://swqwer.github.io/2015/04/28/字符串/index.html">
+<meta property="og:title" content="Java同步器之CountDownLatch">
+<meta property="og:url" content="https://swqwer.github.io/2017/05/12/Java同步器之CountDownLatch/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta property="og:updated_time" content="2017-04-28T07:55:43.462Z">
+<meta property="og:description" content="从这篇开始准备写下Java同步器系列 我们知道Java为我们提供了synchronized关键字对临界区进行线程同步访问。但是它有缺陷很难正确的编写同步代码,但是Java并发包提供了高级的同步器即控制通用的同步方法的类,有这么几个同步器: 倒计时 countdownlatch, 同步屏障 cyclic barrier,交换器 exchanger,信号量 semaphore , phaser同步器。">
+<meta property="og:updated_time" content="2017-05-12T09:32:30.423Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符串">
-<meta name="twitter:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
+<meta name="twitter:title" content="Java同步器之CountDownLatch">
+<meta name="twitter:description" content="从这篇开始准备写下Java同步器系列 我们知道Java为我们提供了synchronized关键字对临界区进行线程同步访问。但是它有缺陷很难正确的编写同步代码,但是Java并发包提供了高级的同步器即控制通用的同步方法的类,有这么几个同步器: 倒计时 countdownlatch, 同步屏障 cyclic barrier,交换器 exchanger,信号量 semaphore , phaser同步器。">
 
 
 
@@ -140,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2015/04/28/字符串/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/05/12/Java同步器之CountDownLatch/"/>
 
 
 
 
 
-  <title> 字符串 | tryMore </title>
+  <title> Java同步器之CountDownLatch | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -275,7 +275,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2015/04/28/字符串/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/05/12/Java同步器之CountDownLatch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain Army">
@@ -296,7 +296,7 @@
             
             
               
-                字符串
+                Java同步器之CountDownLatch
               
             
           </h1>
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-28T15:30:55+08:00">
-                2015-04-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-12T16:35:46+08:00">
+                2017-05-12
               </time>
             
 
@@ -352,7 +352,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2015/04/28/字符串/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/05/12/Java同步器之CountDownLatch/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -361,7 +361,7 @@
 
           
           
-             <span id="/2015/04/28/字符串/" class="leancloud_visitors" data-flag-title="字符串">
+             <span id="/2017/05/12/Java同步器之CountDownLatch/" class="leancloud_visitors" data-flag-title="Java同步器之CountDownLatch">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -389,36 +389,29 @@
       
 
       
-        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。</p>
+        <p>从这篇开始准备写下Java同步器系列</p>
+<p>我们知道Java为我们提供了synchronized关键字对临界区进行线程同步访问。但是它有缺陷很难正确的编写同步代码,但是Java并发包提供了高级的同步器即控制通用的同步方法的类,有这么几个同步器: 倒计时 countdownlatch,</p>
+<p>同步屏障 cyclic barrier,交换器 exchanger,信号量 semaphore , phaser同步器。</p>
 <a id="more"></a>
-<h2 id="char数组"><a href="#char数组" class="headerlink" title="char数组"></a>char数组</h2><p>首先它里面存储数据的数据结构是char数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
-<h2 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h2><p>注意，在重写equals方法时，需要按照以下几个规则设计：</p>
-<p>1自反性 ：对任意引用值X，x.equals(x)的返回值一定为true.<br>2对称性： 对于任何引用值x,y,当且仅当y.equals(x)返回值为true时，x.equals(y)的返回值一定为true;<br>3传递性：如果x.equals(y)=true, y.equals(z)=true,则x.equals(z)=true<br>4一致性：如果参与比较的对象没任何改变，则对象比较的结果也不应该有任何改变<br>5非空性：任何非空的引用值X，x.equals(null)的返回值一定为false</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</div><div class="line">           String anotherString = (String)anObject;</div><div class="line">           <span class="keyword">int</span> n = value.length;</div><div class="line">           <span class="keyword">if</span> (n == anotherString.value.length) &#123;</div><div class="line">               <span class="keyword">char</span> v1[] = value;</div><div class="line">               <span class="keyword">char</span> v2[] = anotherString.value;</div><div class="line">               <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">               <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</div><div class="line">                   <span class="keyword">if</span> (v1[i] != v2[i])</div><div class="line">                       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                   i++;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h2 id="intern方法"><a href="#intern方法" class="headerlink" title="intern方法"></a>intern方法</h2><p>先来看下java 源码的注释：</p>
-<pre><code>/**
-* Returns a canonical representation for the string object.
-* &lt;p&gt;
-* A pool of strings, initially empty, is maintained privately by the
-* class {@code String}.
-* &lt;p&gt;
-* When the intern method is invoked, if the pool already contains a
-* string equal to this {@code String} object as determined by
-* the {@link #equals(Object)} method, then the string from the pool is
-* returned. Otherwise, this {@code String} object is added to the
-* pool and a reference to this {@code String} object is returned.
-* &lt;p&gt;
-* It follows that for any two strings {@code s} and {@code t},
-* {@code s.intern() == t.intern()} is {@code true}
-* if and only if {@code s.equals(t)} is {@code true}.
-* &lt;p&gt;
-* All literal strings and string-valued constant expressions are
-* interned. String literals are defined in section 3.10.5 of the
-* &lt;cite&gt;The Java&amp;trade; Language Specification&lt;/cite&gt;.
-*/
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>String的equals方法和intern方法是平时开发中会忽略的地方。加深印象。</p>
+<h2 id="倒计时countdownlatch"><a href="#倒计时countdownlatch" class="headerlink" title="倒计时countdownlatch"></a>倒计时countdownlatch</h2><p>倒计时同步器会导致一条或者多条线程在“门口”一直等待,直到另外一个线程打开这门,线程    才能继续运行,它是由一个计数变量和两个操作组成的,这两个操作分别是导致一个线程等待直到计数变成0和递减计数变量。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>通过类构造方法来初始化一个倒计时实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * Constructs a &#123;<span class="doctag">@code</span> CountDownLatch&#125; initialized with the given count.</div><div class="line">  *</div><div class="line">  * <span class="doctag">@param</span> count the number of times &#123;<span class="doctag">@link</span> #countDown&#125; must be invoked</div><div class="line">  *        before threads can pass through &#123;<span class="doctag">@link</span> #await&#125;</div><div class="line">  * <span class="doctag">@throws</span> IllegalArgumentException if &#123;<span class="doctag">@code</span> count&#125; is negative</div><div class="line">  */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">CountDownLatch</span><span class="params">(<span class="keyword">int</span> count)</span></span></div></pre></td></tr></table></figure>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>它提供了如下方法</p>
+<ol>
+<li>void await() 线程会一直等待直到计数为0,除非线程被中断(抛出中断异常InterruptedException),如果当前计数为0,会立即返回。</li>
+<li>boolean await(long timeout, TimeUnit unit) 线程会一直等待直到计数为0或者以unit为时间单位的timeout超时,除非线程被中断(抛出中断异常InterruptedException),如果当前计数为0立即返回true,当超时,返回false。</li>
+<li>void countDown() 递减计数 ,当计数递减至0时会释放所有等待线程,当方法调用时当前计数已为0,那么什么都不会发生。</li>
+<li>long getCount() 获取当前计数 用于debug</li>
+<li>String toString() 返回一个字符串表示这个倒计时countdownlatch及其状态</li>
+</ol>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>写了个比较简单的demo如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountDownLatchTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> threadsNum = <span class="number">3</span>;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">		<span class="keyword">final</span> CountDownLatch startCountDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</div><div class="line">		<span class="keyword">final</span> CountDownLatch doneCountDownLatch = <span class="keyword">new</span> CountDownLatch(threadsNum);</div><div class="line"></div><div class="line">		ExecutorService executorService = Executors.newFixedThreadPool(threadsNum);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; threadsNum; i++) &#123;</div><div class="line">			executorService.execute(<span class="keyword">new</span> Runnable() &#123;</div><div class="line"></div><div class="line">				<span class="meta">@Override</span></div><div class="line">				<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">					<span class="keyword">try</span> &#123;</div><div class="line">						print(<span class="string">"entered run()"</span>);</div><div class="line">						startCountDownLatch.await();<span class="comment">// wait</span></div><div class="line">						print(<span class="string">"doing work"</span>);<span class="comment">// ..proceed</span></div><div class="line">						Thread.sleep((<span class="keyword">int</span>) Math.random() * <span class="number">1000</span>);</div><div class="line">						doneCountDownLatch.countDown();</div><div class="line">					&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">						e.printStackTrace();</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			System.out.println(<span class="string">"main thread doing something.."</span>);</div><div class="line">			Thread.sleep(<span class="number">1000</span>);<span class="comment">// sleep for 1s</span></div><div class="line">			startCountDownLatch.countDown();<span class="comment">// let threads proceed..</span></div><div class="line">			System.out.println(<span class="string">"main thread doing something else.."</span>);</div><div class="line">			doneCountDownLatch.await();<span class="comment">// wait for all threads to finish</span></div><div class="line">			executorService.shutdownNow();</div><div class="line"></div><div class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String string)</span> </span>&#123;</div><div class="line">		System.out.println(System.currentTimeMillis() + <span class="string">":"</span> + Thread.currentThread() + <span class="string">":"</span> + string);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">main thread doing something..</div><div class="line">1494580624226:Thread[pool-1-thread-3,5,main]:entered run()</div><div class="line">1494580624226:Thread[pool-1-thread-1,5,main]:entered run()</div><div class="line">1494580624226:Thread[pool-1-thread-2,5,main]:entered run()</div><div class="line">main thread doing something else..</div><div class="line">1494580625227:Thread[pool-1-thread-2,5,main]:doing work</div><div class="line">1494580625226:Thread[pool-1-thread-1,5,main]:doing work</div><div class="line">1494580625226:Thread[pool-1-thread-3,5,main]:doing work</div></pre></td></tr></table></figure>
+<h3 id="Demo分析"><a href="#Demo分析" class="headerlink" title="Demo分析"></a>Demo分析</h3><p>首先主线程创建了一对倒计时countdownlatch和startCountDownLatch会默认在主线程就绪之前禁止任何工作线程运行,doneCountDownLatch会使得默认主线程等待所有工作线程全部结束执行。</p>
+<p>先是创建了threadsNum线程的线程池,然后调用了threadsNum次execute把runnable传入线程池。runnable对象的run()中调用了doneCountDownLatch.countDown()递减计数。一旦降为0,等待这个信号的主线程就会继续执行,关闭线程池和中断程序。</p>
+<p>主线程休眠一秒钟的方式来模拟执行其他工作(主要是为了让所有工作线程依次执行run()从而调用startCountDownLatch.await(),然后调用startCountDownLatch.countDown()方法使工作线程开始运行,然后主线程输出一条消息表示主线程在做其他工作,调用doneCountDownLatch.await(), 等待技术为0。</p>
+<p>以上就是countdownlatch全部的内容 (如有不对欢迎斧正O(∩_∩)O哈哈~)。</p>
 
       
     </div>
@@ -464,7 +457,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/string/" rel="tag"># string</a>
+            <a href="/tags/concurrent/" rel="tag"># concurrent</a>
           
         </div>
       
@@ -477,15 +470,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/11/集合/" rel="next" title="集合">
-                <i class="fa fa-chevron-left"></i> 集合
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/02/kafka-environment-build/" rel="prev" title="kafka-environment-build">
+                kafka-environment-build <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -677,7 +670,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#char数组"><span class="nav-number">1.1.</span> <span class="nav-text">char数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals方法"><span class="nav-number">1.2.</span> <span class="nav-text">equals方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern方法"><span class="nav-number">1.3.</span> <span class="nav-text">intern方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#倒计时countdownlatch"><span class="nav-number">1.</span> <span class="nav-text">倒计时countdownlatch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo分析"><span class="nav-number">1.4.</span> <span class="nav-text">Demo分析</span></a></li></ol></li></ol></div>
             
 
           </div>
