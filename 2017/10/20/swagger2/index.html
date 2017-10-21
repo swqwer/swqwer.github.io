@@ -1,0 +1,1118 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="swagger," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍常用的注解,然后注重讲解平时开发中常用的几个注解,一般会影响我们接口的输入输出或者参数自动映射等。官方wiki @Api()这个注解主要用在controller类上用于类；表示标识这个类">
+<meta name="keywords" content="swagger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swagger 二 ：swagger常用注解">
+<meta property="og:url" content="https://swqwer.github.io/2017/10/20/swagger2/index.html">
+<meta property="og:site_name" content="tryMore">
+<meta property="og:description" content="本文主要介绍常用的注解,然后注重讲解平时开发中常用的几个注解,一般会影响我们接口的输入输出或者参数自动映射等。官方wiki @Api()这个注解主要用在controller类上用于类；表示标识这个类">
+<meta property="og:image" content="https://swqwer.github.io/img/swagger6.png">
+<meta property="og:image" content="https://swqwer.github.io/img/swagger7.png">
+<meta property="og:image" content="https://swqwer.github.io/img/swagger8.png">
+<meta property="og:updated_time" content="2017-10-21T12:16:25.559Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="swagger 二 ：swagger常用注解">
+<meta name="twitter:description" content="本文主要介绍常用的注解,然后注重讲解平时开发中常用的几个注解,一般会影响我们接口的输入输出或者参数自动映射等。官方wiki @Api()这个注解主要用在controller类上用于类；表示标识这个类">
+<meta name="twitter:image" content="https://swqwer.github.io/img/swagger6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://swqwer.github.io/2017/10/20/swagger2/"/>
+
+
+
+
+
+  <title> swagger 二 ：swagger常用注解 | tryMore </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tryMore</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/10/20/swagger2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rain Army">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tryMore">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                swagger 二 ：swagger常用注解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T20:04:22+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/swagger/" itemprop="url" rel="index">
+                    <span itemprop="name">swagger</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/20/swagger2/" class="leancloud_visitors" data-flag-title="swagger 二 ：swagger常用注解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍常用的注解,然后注重讲解平时开发中常用的几个注解,一般会影响我们接口的输入输出或者参数自动映射等。<br>官方<a href="https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X#api" target="_blank" rel="external">wiki</a></p>
+<h3 id="Api"><a href="#Api" class="headerlink" title="@Api()"></a>@Api()</h3><p>这个注解主要用在controller类上<br>用于类；表示标识这个类<a id="more"></a>是swagger的资源<br>tags–表示说明<br>value–也是说明，可以使用tags替代 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Api</span>(value=<span class="string">"用户操作相关"</span>,tags = &#123;<span class="string">"用户操作相关"</span>&#125;)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ApiOperation"><a href="#ApiOperation" class="headerlink" title="@ApiOperation"></a>@ApiOperation</h3><p>主要用在controller方法上</p>
+<p><strong>必选元素</strong></p>
+<table>
+<thead>
+<tr>
+<th>限定符和类型</th>
+<th>必需的元素和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>java.lang.String</code></td>
+<td><code>value</code>对这个操作的描述（即对方法的描述）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可选元素</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">限定符和类型</th>
+<th>可选元素和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Authorization[]</code></td>
+<td><code>authorizations</code>用户权限</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>consumes</code>适合媒体类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>httpMethod</code>http方法如 GET, PUT, POST, DELETE, PATCH, OPTIONS（如果不设置改属性，每个接口将会被设置为任一方法都可使用）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>nickname</code>这个接口的昵称</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>notes</code>对这个方法的详细描述（最好要添加这个方法）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>int</code></td>
+<td><code>position</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>produces</code>内容类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>protocols</code>  协议 http, https, ws, wss</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.Class</code></td>
+<td><code>response</code>返回vo类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>responseContainer</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>java.lang.String</code></td>
+<td><code>tags</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"testMethod"</span>,method = RequestMethod.POST)</div><div class="line"><span class="meta">@ApiOperation</span>(value =<span class="string">"测试方法"</span>,produces = <span class="string">"application/json"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testMethod</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ApiParam"><a href="#ApiParam" class="headerlink" title="@ApiParam()"></a>@ApiParam()</h3><p>主要用在controller方法、参数、字段说明上</p>
+<h3 id="ApiModel"><a href="#ApiModel" class="headerlink" title="@ApiModel()"></a>@ApiModel()</h3><p>主要用在输入输出的实体类上</p>
+<h3 id="ApiModelProperty"><a href="#ApiModelProperty" class="headerlink" title="@ApiModelProperty"></a>@ApiModelProperty</h3><p>主要用户实体类的属性上，起到描述的作用，让接口可读性更强</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ApiModel</span>(value=<span class="string">"userApiModel"</span>,description= <span class="string">"user for apimodel"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">	<span class="meta">@ApiModelProperty</span>(name=<span class="string">"id"</span> ,value =<span class="string">"用户id"</span>,example =<span class="string">"123"</span>)</div><div class="line">	<span class="keyword">private</span> String id;</div><div class="line">	<span class="meta">@ApiModelProperty</span>(name =<span class="string">"name"</span>,value = <span class="string">"用户姓名"</span>,example =<span class="string">"张三"</span>)</div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ApiIgnore"><a href="#ApiIgnore" class="headerlink" title="@ApiIgnore()"></a>@ApiIgnore()</h3><p>用于类，方法，方法参数 表示这个方法或者类被忽略</p>
+<h3 id="ApiImplicitParam"><a href="#ApiImplicitParam" class="headerlink" title="@ApiImplicitParam()"></a>@ApiImplicitParam()</h3><p>用在方法上，表示单独的请求参数 ：这个是平时用的最多的也是相对比较重要的一个api注解。</p>
+<p>一般我们使用这个参数的时候,我们通常会指定paramType这个参数的参数值，方便swagger-ui生成参数的输入格式，方便我们调试使用</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:center">取值</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">paramType</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">查询参数类型</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">path</td>
+<td style="text-align:center">以地址的形式提交数据</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">query</td>
+<td style="text-align:center">直接跟参数完成自动映射赋值</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">body</td>
+<td style="text-align:center">以流的形式提交 仅支持POST</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">header</td>
+<td style="text-align:center">参数在request headers 里边提交</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">form</td>
+<td style="text-align:center">以form表单的形式提交 仅支持POST</td>
+</tr>
+<tr>
+<td style="text-align:left">dataType</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">参数的数据类型 只作为标志说明，并没有实际验证</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">Long</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">String</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">接收参数名</td>
+</tr>
+<tr>
+<td style="text-align:left">value</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">接收参数的意义描述</td>
+</tr>
+<tr>
+<td style="text-align:left">required</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">参数是否必填</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">必填</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">非必填</td>
+</tr>
+<tr>
+<td style="text-align:left">defaultValue</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">默认值</td>
+</tr>
+</tbody>
+</table>
+<p>一般我们使用的时候 一般配置name，value，required,和paramType尤其是这个参数 ，它有五个值，默认的值是body，就是以流的形式提交且只支持Post方法；默认 paramType值为body即以流的形式提交。</p>
+<h4 id="paramType值为path"><a href="#paramType值为path" class="headerlink" title="paramType值为path"></a>paramType值为path</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"testMethod/&#123;name&#125;"</span>,method = RequestMethod.POST)</div><div class="line"><span class="meta">@ApiOperation</span>(value =<span class="string">"测试方法"</span>,produces = <span class="string">"application/json"</span>,consumes =<span class="string">"application/json"</span>)</div><div class="line"><span class="meta">@ApiImplicitParams</span>(&#123;<span class="meta">@ApiImplicitParam</span>(name =<span class="string">"name"</span>,value =<span class="string">"用户姓名"</span>,required = <span class="keyword">true</span>,paramType = <span class="string">"path"</span>),<span class="meta">@ApiImplicitParam</span>(name =<span class="string">"user"</span>,value = <span class="string">"用户对象"</span>,required = <span class="keyword">true</span>)&#125;)</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">testMethod</span><span class="params">(String name,User user)</span> </span>&#123;</div><div class="line">  System.out.println(user.getName());</div><div class="line">  System.out.println(user.getId());</div><div class="line">  <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>界面如下：<img src="/img/swagger6.png" alt=""></p>
+<p>测试界面如下：<img src="/img/swagger7.png" alt=""></p>
+<p>path的情况下参数name追加到了请求路径下。</p>
+<h4 id="paramType值为query"><a href="#paramType值为query" class="headerlink" title="paramType值为query"></a>paramType值为query</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"testMethod"</span>,method = RequestMethod.POST)</div><div class="line"><span class="meta">@ApiOperation</span>(value =<span class="string">"测试方法"</span>,produces = <span class="string">"application/json"</span>,consumes =<span class="string">"application/json"</span>)</div><div class="line"><span class="meta">@ApiImplicitParams</span>(&#123;<span class="meta">@ApiImplicitParam</span>(name =<span class="string">"name"</span>,value =<span class="string">"用户姓名"</span>,required = <span class="keyword">true</span>,paramType = <span class="string">"query"</span>), <span class="meta">@ApiImplicitParam</span>(name =<span class="string">"user"</span>,value = <span class="string">"用户对象"</span>,required = <span class="keyword">true</span>)&#125;)</div></pre></td></tr></table></figure>
+<p>测试界面如下：<img src="/img/swagger8.png" alt=""></p>
+<p>query的情况下参数name会以参数的情况下拼接到url后。</p>
+<h4 id="paramType值为body"><a href="#paramType值为body" class="headerlink" title="paramType值为body"></a>paramType值为body</h4><p>当我们传两个参数的时候，比如就像上面的例子，第一个参数 name，第二个参数user，如何保证让参数自动映射正确，这得再写篇文章了关于方法传入多个参数的解放方案。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"testMethod"</span>,method = RequestMethod.POST)</div><div class="line"><span class="meta">@ApiOperation</span>(value =<span class="string">"测试方法"</span>,produces = MediaType.APPLICATION_JSON_VALUE,consumes =     MediaType.APPLICATION_JSON_VALUE)</div><div class="line"><span class="meta">@ApiImplicitParams</span>(&#123;<span class="meta">@ApiImplicitParam</span>(name =<span class="string">"name"</span>,value =<span class="string">"用户姓名"</span>,required = <span class="keyword">true</span>,paramType = <span class="string">"query"</span>), <span class="meta">@ApiImplicitParam</span>(name =<span class="string">"user"</span>,value = <span class="string">"用户对象"</span>,required = <span class="keyword">true</span>,paramType = <span class="string">"body"</span>)&#125;)</div><div class="line"><span class="function"><span class="keyword">public</span> User <span class="title">testMethod</span><span class="params">(String name,@RequestBody User user)</span> </span>&#123;</div><div class="line">  System.out.println(user.getName());</div><div class="line">  System.out.println(user.getId());</div><div class="line">  <span class="keyword">return</span> user;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述方法为了让user对象能够正确注入，因为swagger默认的content-Type是application/json，我们可以设置consumer设置为application/x-www-form-urlencoded，同样可以映射成功。如果想使用json接受，那就在参数上使用@RequestBody，content-Type为默认的application/json，同时当你使用了@RequestBody，请求时content-Type就不能设置为application/x-www-form-urlencoded不然会报 Unsupported Media Type</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ApiOperation</span>(value =<span class="string">"测试方法"</span>,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)</div></pre></td></tr></table></figure>
+<h4 id="paramType值为form"><a href="#paramType值为form" class="headerlink" title="paramType值为form"></a>paramType值为form</h4><p>一般用于表单的提交。</p>
+<h4 id="paramType值为header"><a href="#paramType值为header" class="headerlink" title="paramType值为header"></a>paramType值为header</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ApiImplicitParams</span>(&#123; <span class="meta">@ApiImplicitParam</span>(paramType = <span class="string">"header"</span>, dataType = <span class="string">"Long"</span>, name = <span class="string">"id"</span>, value = <span class="string">"用户id"</span>, required = <span class="keyword">true</span>) &#125;) </div><div class="line"></div><div class="line">String id= request.getHeader(<span class="string">"id"</span>);<span class="comment">//通过该方法来获取</span></div></pre></td></tr></table></figure>
+<h3 id="ApiImplicitParams"><a href="#ApiImplicitParams" class="headerlink" title="@ApiImplicitParams()"></a>@ApiImplicitParams()</h3><p>用于方法，主要是根据@ApiImplicitParam组合使用</p>
+<h3 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h3><p>一般用于表达错误的响应信息。</p>
+<h3 id="ApiResponses"><a href="#ApiResponses" class="headerlink" title="@ApiResponses"></a>@ApiResponses</h3><p>结合@ApiResponse一起使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ApiResponses</span>(&#123;<span class="meta">@ApiResponse</span>(code = <span class="number">404</span>,message = <span class="string">"message 404"</span>,responseHeaders = &#123;<span class="meta">@ResponseHeader</span>(name =<span class="string">"test"</span>,description =<span class="string">"test description"</span>)&#125;)&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Authorization"><a href="#Authorization" class="headerlink" title="@Authorization"></a>@Authorization</h3><p>目前很少用到以后用到再来完善。</p>
+<h3 id="AuthorizationScope"><a href="#AuthorizationScope" class="headerlink" title="@AuthorizationScope"></a>@AuthorizationScope</h3><p>目前很少用到以后用到再来完善。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wetchat_pay.png" alt="Rain Army WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/swagger/" rel="tag"># swagger</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/20/redisDistributionLock/" rel="prev" title="redis分布式锁的应用">
+                redis分布式锁的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Rain Army" />
+          <p class="site-author-name" itemprop="name">Rain Army</p>
+           
+              <p class="site-description motion-element" itemprop="description">try more try hard</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/swqwer" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.tuicool.com" title="推酷" target="_blank">推酷</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.infoq.com/" title="InfoQ" target="_blank">InfoQ</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Api"><span class="nav-number">1.</span> <span class="nav-text">@Api()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiOperation"><span class="nav-number">2.</span> <span class="nav-text">@ApiOperation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiParam"><span class="nav-number">3.</span> <span class="nav-text">@ApiParam()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiModel"><span class="nav-number">4.</span> <span class="nav-text">@ApiModel()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiModelProperty"><span class="nav-number">5.</span> <span class="nav-text">@ApiModelProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiIgnore"><span class="nav-number">6.</span> <span class="nav-text">@ApiIgnore()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiImplicitParam"><span class="nav-number">7.</span> <span class="nav-text">@ApiImplicitParam()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#paramType值为path"><span class="nav-number">7.1.</span> <span class="nav-text">paramType值为path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paramType值为query"><span class="nav-number">7.2.</span> <span class="nav-text">paramType值为query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paramType值为body"><span class="nav-number">7.3.</span> <span class="nav-text">paramType值为body</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paramType值为form"><span class="nav-number">7.4.</span> <span class="nav-text">paramType值为form</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paramType值为header"><span class="nav-number">7.5.</span> <span class="nav-text">paramType值为header</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiImplicitParams"><span class="nav-number">8.</span> <span class="nav-text">@ApiImplicitParams()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiResponse"><span class="nav-number">9.</span> <span class="nav-text">@ApiResponse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApiResponses"><span class="nav-number">10.</span> <span class="nav-text">@ApiResponses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authorization"><span class="nav-number">11.</span> <span class="nav-text">@Authorization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AuthorizationScope"><span class="nav-number">12.</span> <span class="nav-text">@AuthorizationScope</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rain Army</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("XLBHFIAnNs6fG23LTzgpyAdQ-gzGzoHsz", "Xu9R8drbpWAmJ3e6dttFDQex");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

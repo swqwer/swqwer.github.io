@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="string," />
+  <meta name="keywords" content="swagger," />
 
 
 
@@ -102,17 +102,17 @@
 
 
 
-<meta name="description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta name="keywords" content="string">
+<meta name="description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
+<meta name="keywords" content="swagger">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符串">
-<meta property="og:url" content="https://swqwer.github.io/2015/04/28/字符串/index.html">
+<meta property="og:title" content="redis分布式锁的应用">
+<meta property="og:url" content="https://swqwer.github.io/2017/10/20/redisDistributionLock/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
-<meta property="og:updated_time" content="2017-04-28T07:55:43.462Z">
+<meta property="og:description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
+<meta property="og:updated_time" content="2017-10-21T12:26:38.962Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符串">
-<meta name="twitter:description" content="介绍今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。">
+<meta name="twitter:title" content="redis分布式锁的应用">
+<meta name="twitter:description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
 
 
 
@@ -140,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2015/04/28/字符串/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/10/20/redisDistributionLock/"/>
 
 
 
 
 
-  <title> 字符串 | tryMore </title>
+  <title> redis分布式锁的应用 | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -275,7 +275,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2015/04/28/字符串/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/10/20/redisDistributionLock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain Army">
@@ -296,7 +296,7 @@
             
             
               
-                字符串
+                redis分布式锁的应用
               
             
           </h1>
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-28T15:30:55+08:00">
-                2015-04-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T20:04:22+08:00">
+                2017-10-20
               </time>
             
 
@@ -334,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/swagger/" itemprop="url" rel="index">
+                    <span itemprop="name">swagger</span>
                   </a>
                 </span>
 
@@ -351,7 +351,7 @@
 
           
           
-             <span id="/2015/04/28/字符串/" class="leancloud_visitors" data-flag-title="字符串">
+             <span id="/2017/10/20/redisDistributionLock/" class="leancloud_visitors" data-flag-title="redis分布式锁的应用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -379,36 +379,13 @@
       
 
       
-        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>今天来介绍下平时开发中使用频率很高的String类，是否真的理解这个不可变类。</p>
-<a id="more"></a>
-<h2 id="char数组"><a href="#char数组" class="headerlink" title="char数组"></a>char数组</h2><p>首先它里面存储数据的数据结构是char数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
-<h2 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h2><p>注意，在重写equals方法时，需要按照以下几个规则设计：</p>
-<p>1自反性 ：对任意引用值X，x.equals(x)的返回值一定为true.<br>2对称性： 对于任何引用值x,y,当且仅当y.equals(x)返回值为true时，x.equals(y)的返回值一定为true;<br>3传递性：如果x.equals(y)=true, y.equals(z)=true,则x.equals(z)=true<br>4一致性：如果参与比较的对象没任何改变，则对象比较的结果也不应该有任何改变<br>5非空性：任何非空的引用值X，x.equals(null)的返回值一定为false</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</div><div class="line">           String anotherString = (String)anObject;</div><div class="line">           <span class="keyword">int</span> n = value.length;</div><div class="line">           <span class="keyword">if</span> (n == anotherString.value.length) &#123;</div><div class="line">               <span class="keyword">char</span> v1[] = value;</div><div class="line">               <span class="keyword">char</span> v2[] = anotherString.value;</div><div class="line">               <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">               <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</div><div class="line">                   <span class="keyword">if</span> (v1[i] != v2[i])</div><div class="line">                       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                   i++;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h2 id="intern方法"><a href="#intern方法" class="headerlink" title="intern方法"></a>intern方法</h2><p>先来看下java 源码的注释：</p>
-<pre><code>/**
-* Returns a canonical representation for the string object.
-* &lt;p&gt;
-* A pool of strings, initially empty, is maintained privately by the
-* class {@code String}.
-* &lt;p&gt;
-* When the intern method is invoked, if the pool already contains a
-* string equal to this {@code String} object as determined by
-* the {@link #equals(Object)} method, then the string from the pool is
-* returned. Otherwise, this {@code String} object is added to the
-* pool and a reference to this {@code String} object is returned.
-* &lt;p&gt;
-* It follows that for any two strings {@code s} and {@code t},
-* {@code s.intern() == t.intern()} is {@code true}
-* if and only if {@code s.equals(t)} is {@code true}.
-* &lt;p&gt;
-* All literal strings and string-valued constant expressions are
-* interned. String literals are defined in section 3.10.5 of the
-* &lt;cite&gt;The Java&amp;trade; Language Specification&lt;/cite&gt;.
-*/
-</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>String的equals方法和intern方法是平时开发中会忽略的地方。加深印象。</p>
+        <p>最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。<br>最初是代码如下<a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getAccessToken</span><span class="params">(String appId,String appSecret)</span> </span>&#123;</div><div class="line">		String url = ACCESSTOKENURL.replace(<span class="string">"APPID"</span>, appId).replace(<span class="string">"APPSECRET"</span>, appSecret);</div><div class="line">		String accessToken = JedisUtils.get(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">		<span class="keyword">if</span>(StringUtils.isNotBlank(accessToken)) &#123;</div><div class="line">			<span class="keyword">return</span> accessToken;</div><div class="line">		&#125;</div><div class="line">		String response = HttpUtil.doGet(url);</div><div class="line">		WebChatAccessToken token = JsonUtils.decode(response, WebChatAccessToken.class);</div><div class="line">		<span class="keyword">if</span>(token != <span class="keyword">null</span>) &#123;</div><div class="line">			JedisUtils.set(appId.concat(ACCESSTOKENSUFFIX), token.getAccess_token(),<span class="number">3600</span>);</div><div class="line">			<span class="keyword">return</span> token.getAccess_token();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>线上是集群情况下：这个代码是有问题，当多个线程来访问这个代码的时候会出现accessToken被覆盖的情况，我们目前没有根据accessToken失效后来再次刷新accessToken，而是怎么规避当多线程访问的时候，只有一个线程去设置缓存。由于之前看过一本redis运维相关的书籍提到过redis可以实现分布式锁解决访问共享资源的时候不会出现脏读。<br>修改后 将代码修改如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getAccessToken</span><span class="params">(String appId, String appSecret)</span> </span>&#123;</div><div class="line">		<span class="comment">// reids中 获取 accessToken</span></div><div class="line">		String accessToken = JedisUtils.get(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">		<span class="comment">// 如果accessToken 为空 则开始重构缓存</span></div><div class="line">		<span class="keyword">if</span> (StringUtils.isBlank(accessToken)) &#123;</div><div class="line">			<span class="comment">// 只允许一个线程设置缓存 使用setnx 并设置过期时间</span></div><div class="line">			String mutexKey = <span class="string">"mutex:Key:"</span>.concat(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">			<span class="comment">// 获取锁成功</span></div><div class="line">			<span class="keyword">if</span> (JedisUtils.setnx(mutexKey, mutexKey)) &#123;</div><div class="line">				<span class="comment">// 获取 accessToken</span></div><div class="line">				String response = HttpUtil.doGet(ACCESSTOKENURL.replace(<span class="string">"APPID"</span>, appId).replace(<span class="string">"APPSECRET"</span>, appSecret));</div><div class="line">				WebChatAccessToken token = JsonUtils.decode(response, WebChatAccessToken.class);</div><div class="line">				<span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</div><div class="line">					<span class="comment">// 设置accessToken缓存 且 缓存一个钟</span></div><div class="line">					JedisUtils.setex(appId.concat(ACCESSTOKENSUFFIX), token.getAccess_token(), <span class="number">3600</span>);</div><div class="line">					<span class="comment">// 删除mutexKey 当accessToken过期时 可以继续重构缓存</span></div><div class="line">					JedisUtils.del(mutexKey);</div><div class="line">					<span class="keyword">return</span> token.getAccess_token();</div><div class="line">				&#125;</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				<span class="comment">// 获取锁失败</span></div><div class="line">				<span class="keyword">try</span> &#123;</div><div class="line">					<span class="comment">// 休息50毫秒后重试</span></div><div class="line">					Thread.sleep(<span class="number">50</span>);</div><div class="line">					getAccessToken(appId, appSecret);</div><div class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">					logger.error(<span class="string">"error message &#123;&#125;"</span>, e);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> accessToken;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>修改后不会出现accessToken被覆盖的情况。主要是通过redis的setnx来模拟分布式锁来处理。看下setnx的简单介绍如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * SETNX works exactly like &#123;<span class="doctag">@link</span> #set(String, String) SET&#125; with the only difference that if the</div><div class="line">  * key already exists no operation is performed. SETNX actually means "SET if Not eXists".</div><div class="line">  * &lt;p&gt;</div><div class="line">  * Time complexity: O(1)</div><div class="line">  * <span class="doctag">@param</span> key</div><div class="line">  * <span class="doctag">@param</span> value</div><div class="line">  * <span class="doctag">@return</span> Integer reply, specifically: 1 if the key was set 0 if the key was not set</div><div class="line">  */</div></pre></td></tr></table></figure>
+<p>分布式锁目前实现有 zookeeper、redis等实现方案，但原理都是类似，就是利用一个标识来模拟锁，锁的释放和获取都是通过标识来实现。回头将redis分布式锁封装成工具方便同事使用。O(∩_∩)O哈哈~</p>
+<p>不过上面代码也有个缺陷就是 redis服务挂掉的话，相当于没有锁。所以最好使用主从+哨兵 为了高可用。</p>
 
       
     </div>
@@ -454,7 +431,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/string/" rel="tag"># string</a>
+            <a href="/tags/swagger/" rel="tag"># swagger</a>
           
         </div>
       
@@ -467,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/11/集合/" rel="next" title="集合">
-                <i class="fa fa-chevron-left"></i> 集合
+              <a href="/2017/10/20/swagger2/" rel="next" title="swagger 二 ：swagger常用注解">
+                <i class="fa fa-chevron-left"></i> swagger 二 ：swagger常用注解
               </a>
             
           </div>
@@ -476,6 +453,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/13/swagger1/" rel="prev" title="swagger 一:swagger与spring集成">
+                swagger 一:swagger与spring集成 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -545,17 +526,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -655,22 +627,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#char数组"><span class="nav-number">1.1.</span> <span class="nav-text">char数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equals方法"><span class="nav-number">1.2.</span> <span class="nav-text">equals方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern方法"><span class="nav-number">1.3.</span> <span class="nav-text">intern方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
