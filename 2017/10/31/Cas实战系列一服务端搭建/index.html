@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="kafka,zookeeper," />
+  <meta name="keywords" content="cas,shiro," />
 
 
 
@@ -102,37 +102,22 @@
 
 
 
-<meta name="description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
-<meta name="keywords" content="kafka,zookeeper">
+<meta name="description" content="由于工作中需要使用到单点，由于项目中已使用过shiro框架，所以选择了jasig.cas来做sso，也遇到了些问题，所以记录下，分享下自己的过程，如有异议，欢迎斧正O(∩_∩)O哈哈~   QQ:468761937 架构图Cas分为服务端和客户端文档，架构图如下">
+<meta name="keywords" content="cas,shiro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kafka-environment-build">
-<meta property="og:url" content="https://swqwer.github.io/2017/05/02/kafka-environment-build/index.html">
+<meta property="og:title" content="Cas实战系列一服务端搭建">
+<meta property="og:url" content="https://swqwer.github.io/2017/10/31/Cas实战系列一服务端搭建/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
-<meta property="og:image" content="https://swqwer.github.io/img/downloadkafka.png">
-<meta property="og:image" content="https://swqwer.github.io/img/localkafkadir.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkamaindir.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkabindir.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkabinwindows.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkazookeeperconfig.png">
-<meta property="og:image" content="https://swqwer.github.io/img/zookeeperconfig.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkaconfig.png">
-<meta property="og:image" content="https://swqwer.github.io/img/kafkaserverconfig.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startzookeeper.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startedzookeeper.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startkafka.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startedkafka.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startedcreatedir.png">
-<meta property="og:image" content="https://swqwer.github.io/img/createdtopic.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startedconsumer.png">
-<meta property="og:image" content="https://swqwer.github.io/img/startedproducer.png">
-<meta property="og:image" content="https://swqwer.github.io/img/allcmd.png">
-<meta property="og:image" content="https://swqwer.github.io/img/helloworld.png">
-<meta property="og:updated_time" content="2017-05-02T10:40:09.695Z">
+<meta property="og:description" content="由于工作中需要使用到单点，由于项目中已使用过shiro框架，所以选择了jasig.cas来做sso，也遇到了些问题，所以记录下，分享下自己的过程，如有异议，欢迎斧正O(∩_∩)O哈哈~   QQ:468761937 架构图Cas分为服务端和客户端文档，架构图如下">
+<meta property="og:image" content="https://swqwer.github.io/img/casarchitecture.png">
+<meta property="og:image" content="https://swqwer.github.io/img/cas1.png">
+<meta property="og:image" content="https://swqwer.github.io/img/cas2.png">
+<meta property="og:image" content="https://swqwer.github.io/img/cas3.png">
+<meta property="og:updated_time" content="2017-11-02T10:59:57.647Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kafka-environment-build">
-<meta name="twitter:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
-<meta name="twitter:image" content="https://swqwer.github.io/img/downloadkafka.png">
+<meta name="twitter:title" content="Cas实战系列一服务端搭建">
+<meta name="twitter:description" content="由于工作中需要使用到单点，由于项目中已使用过shiro框架，所以选择了jasig.cas来做sso，也遇到了些问题，所以记录下，分享下自己的过程，如有异议，欢迎斧正O(∩_∩)O哈哈~   QQ:468761937 架构图Cas分为服务端和客户端文档，架构图如下">
+<meta name="twitter:image" content="https://swqwer.github.io/img/casarchitecture.png">
 
 
 
@@ -160,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2017/05/02/kafka-environment-build/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/10/31/Cas实战系列一服务端搭建/"/>
 
 
 
 
 
-  <title> kafka-environment-build | tryMore </title>
+  <title> Cas实战系列一服务端搭建 | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -295,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/05/02/kafka-environment-build/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/10/31/Cas实战系列一服务端搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain Army">
@@ -316,7 +301,7 @@
             
             
               
-                kafka-environment-build
+                Cas实战系列一服务端搭建
               
             
           </h1>
@@ -331,8 +316,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T17:14:05+08:00">
-                2017-05-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T19:14:05+08:00">
+                2017-10-31
               </time>
             
 
@@ -354,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kafka/" itemprop="url" rel="index">
-                    <span itemprop="name">kafka</span>
+                  <a href="/categories/cas/" itemprop="url" rel="index">
+                    <span itemprop="name">cas</span>
                   </a>
                 </span>
 
@@ -371,7 +356,7 @@
 
           
           
-             <span id="/2017/05/02/kafka-environment-build/" class="leancloud_visitors" data-flag-title="kafka-environment-build">
+             <span id="/2017/10/31/Cas实战系列一服务端搭建/" class="leancloud_visitors" data-flag-title="Cas实战系列一服务端搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,59 +384,24 @@
       
 
       
-        <p>windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。</p>
+        <p>由于工作中需要使用到单点，由于项目中已使用过shiro框架，所以选择了jasig.cas来做sso，也遇到了些问题，所以记录下，分享下自己的过程，如有异议，欢迎斧正O(∩_∩)O哈哈~   QQ:468761937</p>
+<h3 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h3><p>Cas分为服务端和客户端<a href="https://apereo.github.io/cas/4.1.x/index.html" target="_blank" rel="external">文档</a>，架构图如下</p>
+<p><img src="/img/casarchitecture.png" alt=""></p>
 <a id="more"></a>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>官网下载<a href="http://kafka.apache.org/downloads" target="_blank" rel="external">kafka下载</a></p>
-<p><img src="/img/downloadkafka.png" alt=""></p>
-<p>我本地使用的版本是kafka_2.10-0.10.2.0下载下来后放到某一盘符 我是在D盘新建一个文件夹zk_kafka把文件解压到此如下图所示</p>
-<p><img src="/img/localkafkadir.png" alt=""></p>
-<p>进入kafka目录我们可以发现 此版本的kafka已集成了zookeeper所以我们无需再另外单独下载zookeeper具体如下图所示</p>
-<p><img src="/img/kafkamaindir.png" alt=""></p>
-<p><img src="/img/kafkabindir.png" alt=""></p>
-<p>由于我是在windows上搭建所以等会我们就是用bin/windows下的bat</p>
-<p><img src="/img/kafkabinwindows.png" alt=""></p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="修改zookeeper配置文件"><a href="#修改zookeeper配置文件" class="headerlink" title="修改zookeeper配置文件"></a>修改zookeeper配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录</p>
-<p><img src="/img/kafkazookeeperconfig.png" alt=""></p>
-<p>修改datadir保存默认端口2181</p>
-<p><img src="/img/zookeeperconfig.png" alt=""></p>
-<h3 id="修改kafka-server配置文件"><a href="#修改kafka-server配置文件" class="headerlink" title="修改kafka-server配置文件"></a>修改kafka-server配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录kafkaconfig.png</p>
-<p><img src="/img/kafkaconfig.png" alt=""></p>
-<p>修改log.dirs</p>
-<p><img src="/img/kafkaserverconfig.png" alt=""></p>
-<h3 id="producer和consumer配置文件"><a href="#producer和consumer配置文件" class="headerlink" title="producer和consumer配置文件"></a>producer和consumer配置文件</h3><p>如果没有改动zookeeper端口无需修改配置文件 我们就默认使用它的配置文件无需修改</p>
-<h3 id="启动zookeeper"><a href="#启动zookeeper" class="headerlink" title="启动zookeeper"></a>启动zookeeper</h3><p>进入kafka_2.10-0.10.2.0我本地使用的 git bash 使用windows7系统自带的命令可以。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties</div></pre></td></tr></table></figure>
-<p>如下如所示</p>
-<p><img src="/img/startzookeeper.png" alt=""></p>
-<p>回车 执行 如下图所示</p>
-<p><img src="/img/startedzookeeper.png" alt=""></p>
-<h3 id="启动kafka"><a href="#启动kafka" class="headerlink" title="启动kafka"></a>启动kafka</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-server-start.bat ./config/server.properties</div></pre></td></tr></table></figure>
-<p>如下如所示</p>
-<p><img src="/img/startkafka.png" alt=""></p>
-<p>回车执行如下如所示</p>
-<p><img src="/img/startedkafka.png" alt=""></p>
-<p>启动kafka和zookeeper后 会根据刚才配置文件设置的产生文件夹</p>
-<p>如下如所示</p>
-<p><img src="/img/startedcreatedir.png" alt=""></p>
-<h3 id="创建topic"><a href="#创建topic" class="headerlink" title="创建topic"></a>创建topic</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">2</span> --topic test.topic</div></pre></td></tr></table></figure>
-<p>回车执行如下如所示</p>
-<p><img src="/img/createdtopic.png" alt=""></p>
-<h3 id="启动consumer客户端"><a href="#启动consumer客户端" class="headerlink" title="启动consumer客户端"></a>启动consumer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-consumer.bat --zookeeper localhost:<span class="number">2181</span> --topic test.topic</div></pre></td></tr></table></figure>
-<p>回车执行如下如所示</p>
-<p><img src="/img/startedconsumer.png" alt=""></p>
-<h3 id="启动producer客户端"><a href="#启动producer客户端" class="headerlink" title="启动producer客户端"></a>启动producer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-producer.bat --broker-list localhost:<span class="number">9092</span> --topic test.topic</div></pre></td></tr></table></figure>
-<p>回车执行如下如所示</p>
-<p><img src="/img/startedproducer.png" alt=""></p>
-<p>到此有四个命令窗口 分别为 zookeeper 、kafka、consumer、producer</p>
-<p><img src="/img/allcmd.png" alt=""></p>
-<p>在producer窗口输入helloworld同时在consumer中就能看到</p>
-<p>如下图所示</p>
-<p><img src="/img/helloworld.png" alt=""></p>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>到此kafka环境搭建完毕。</p>
+<h3 id="服务端搭建"><a href="#服务端搭建" class="headerlink" title="服务端搭建"></a>服务端搭建</h3><p>官网地址<a href="https://github.com/apereo/cas" target="_blank" rel="external">Cas</a>因为平时使用maven比较多所，而cas只有4.1.x之前的版本才支持maven，所以就下载了分支<a href="https://github.com/apereo/cas/tree/4.1.x" target="_blank" rel="external">4.1.x</a>这个版本需要jdk1.7版本以上(具体参考官方<a href="https://apereo.github.io/cas/4.1.x/planning/Installation-Requirements.html" target="_blank" rel="external">基础</a>)</p>
+<p>之后的博客都是基于这个版本的讲解，下载下来解压导入到eclipse中如下(需要build一点时间)</p>
+<p><img src="/img/cas1.png" alt=""></p>
+<p>我们需要使用的是cas-server-webapp，直接install，将打包的程序直接用jetty或者Tomcat就可以跑起来(源码pom文件里已有jetty插件)，起来后，发现默认登录界面是使用英文(不过cas已帮我们翻译很多中语言只需要我们手动设置就行，其实实际的开发中一般都要改造换个登录界面)</p>
+<h4 id="修改语言"><a href="#修改语言" class="headerlink" title="修改语言"></a>修改语言</h4><p>只需要修改WEB-INF下的applicationContext.xml下的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">util:list</span> <span class="attr">id</span>=<span class="string">"basenames"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:custom_messages<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:messages_zh_CN<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--messages改成messages_ZH_CN--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">util:list</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>重新启动，界面如下</p>
+<p><img src="/img/cas2.png" alt=""></p>
+<p>我们可以看到提示地址不安全(线上跑的时候一定得https，不然很不安全具体原因之后博客会涉及到)为了简单博客就不配置https，都以http的运行(这个配置网上很多资源 比如<a href="http://blog.csdn.net/zdy0_2004/article/details/49768233" target="_blank" rel="external">参考</a>)</p>
+<p>cas默认的登录名和密码是casuser和Mellon，可以登录名和密码，这些配置都在WEB-INF下的deployerConfigContext.xml(后续将改造primaryAuthenticationHandler这个bean,让它登录读取的用户名和密码使我们系统的用户列表，在实际的开发过程中这个是必须的)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"primaryAuthenticationHandler"</span></span></div><div class="line">          <span class="attr">class</span>=<span class="string">"org.jasig.cas.authentication.AcceptUsersAuthenticationHandler"</span>&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"users"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">map</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"casuser"</span> <span class="attr">value</span>=<span class="string">"Mellon"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">map</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>登录成功的界面如下</p>
+<p><img src="/img/cas3.png" alt=""></p>
+<p>至此http式的cas服务端搭建成功。下篇讲解与框架集成。O(∩_∩)O哈哈~  </p>
 
       
     </div>
@@ -497,9 +447,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/kafka/" rel="tag"># kafka</a>
+            <a href="/tags/cas/" rel="tag"># cas</a>
           
-            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+            <a href="/tags/shiro/" rel="tag"># shiro</a>
           
         </div>
       
@@ -512,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/13/swagger1/" rel="next" title="swagger 一 swagger与spring集成">
-                <i class="fa fa-chevron-left"></i> swagger 一 swagger与spring集成
+              <a href="/2017/11/01/Cas实战系列二与框架集成/" rel="next" title="Cas实战系列二与框架集成">
+                <i class="fa fa-chevron-left"></i> Cas实战系列二与框架集成
               </a>
             
           </div>
@@ -522,8 +472,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/17/other/" rel="prev" title="the one">
-                the one <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/20/swagger2/" rel="prev" title="swagger 二  swagger常用注解">
+                swagger 二  swagger常用注解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -619,7 +569,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -630,7 +580,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -641,7 +591,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -714,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改zookeeper配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">修改zookeeper配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改kafka-server配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">修改kafka-server配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#producer和consumer配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">producer和consumer配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动zookeeper"><span class="nav-number">2.4.</span> <span class="nav-text">启动zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动kafka"><span class="nav-number">2.5.</span> <span class="nav-text">启动kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建topic"><span class="nav-number">2.6.</span> <span class="nav-text">创建topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动consumer客户端"><span class="nav-number">2.7.</span> <span class="nav-text">启动consumer客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动producer客户端"><span class="nav-number">2.8.</span> <span class="nav-text">启动producer客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#架构图"><span class="nav-number">1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端搭建"><span class="nav-number">2.</span> <span class="nav-text">服务端搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改语言"><span class="nav-number">2.1.</span> <span class="nav-text">修改语言</span></a></li></ol></li></ol></div>
             
 
           </div>

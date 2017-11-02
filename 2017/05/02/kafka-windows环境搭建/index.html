@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="redis," />
+  <meta name="keywords" content="kafka,zookeeper," />
 
 
 
@@ -102,17 +102,37 @@
 
 
 
-<meta name="description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
-<meta name="keywords" content="redis">
+<meta name="description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta name="keywords" content="kafka,zookeeper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis分布式锁的应用">
-<meta property="og:url" content="https://swqwer.github.io/2017/10/20/redisDistributionLock/index.html">
+<meta property="og:title" content="kafka-windows环境搭建">
+<meta property="og:url" content="https://swqwer.github.io/2017/05/02/kafka-windows环境搭建/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
-<meta property="og:updated_time" content="2017-10-21T12:30:11.732Z">
+<meta property="og:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta property="og:image" content="https://swqwer.github.io/img/downloadkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/localkafkadir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkamaindir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkabindir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkabinwindows.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkazookeeperconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/zookeeperconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkaconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/kafkaserverconfig.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startzookeeper.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedzookeeper.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedkafka.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedcreatedir.png">
+<meta property="og:image" content="https://swqwer.github.io/img/createdtopic.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedconsumer.png">
+<meta property="og:image" content="https://swqwer.github.io/img/startedproducer.png">
+<meta property="og:image" content="https://swqwer.github.io/img/allcmd.png">
+<meta property="og:image" content="https://swqwer.github.io/img/helloworld.png">
+<meta property="og:updated_time" content="2017-11-02T10:57:09.276Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis分布式锁的应用">
-<meta name="twitter:description" content="最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。最初是代码如下">
+<meta name="twitter:title" content="kafka-windows环境搭建">
+<meta name="twitter:description" content="windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。">
+<meta name="twitter:image" content="https://swqwer.github.io/img/downloadkafka.png">
 
 
 
@@ -140,13 +160,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2017/10/20/redisDistributionLock/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/05/02/kafka-windows环境搭建/"/>
 
 
 
 
 
-  <title> redis分布式锁的应用 | tryMore </title>
+  <title> kafka-windows环境搭建 | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -275,7 +295,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/10/20/redisDistributionLock/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/05/02/kafka-windows环境搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain Army">
@@ -296,7 +316,7 @@
             
             
               
-                redis分布式锁的应用
+                kafka-windows环境搭建
               
             
           </h1>
@@ -311,8 +331,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T20:04:22+08:00">
-                2017-10-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T17:14:05+08:00">
+                2017-05-02
               </time>
             
 
@@ -334,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index">
-                    <span itemprop="name">redis</span>
+                  <a href="/categories/kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">kafka</span>
                   </a>
                 </span>
 
@@ -351,7 +371,7 @@
 
           
           
-             <span id="/2017/10/20/redisDistributionLock/" class="leancloud_visitors" data-flag-title="redis分布式锁的应用">
+             <span id="/2017/05/02/kafka-windows环境搭建/" class="leancloud_visitors" data-flag-title="kafka-windows环境搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -379,13 +399,59 @@
       
 
       
-        <p>最近线上有个微信的项目总是出现个诡异的问题。后来定位到原来是微信基础支持中的accessToken出现覆盖的现象，我们之前是将它缓存到redis中，线上运行的时候总是会小概率时不时出现accessToken获取失败的问题。<br>最初是代码如下<a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getAccessToken</span><span class="params">(String appId,String appSecret)</span> </span>&#123;</div><div class="line">		String url = ACCESSTOKENURL.replace(<span class="string">"APPID"</span>, appId).replace(<span class="string">"APPSECRET"</span>, appSecret);</div><div class="line">		String accessToken = JedisUtils.get(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">		<span class="keyword">if</span>(StringUtils.isNotBlank(accessToken)) &#123;</div><div class="line">			<span class="keyword">return</span> accessToken;</div><div class="line">		&#125;</div><div class="line">		String response = HttpUtil.doGet(url);</div><div class="line">		WebChatAccessToken token = JsonUtils.decode(response, WebChatAccessToken.class);</div><div class="line">		<span class="keyword">if</span>(token != <span class="keyword">null</span>) &#123;</div><div class="line">			JedisUtils.set(appId.concat(ACCESSTOKENSUFFIX), token.getAccess_token(),<span class="number">3600</span>);</div><div class="line">			<span class="keyword">return</span> token.getAccess_token();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>线上是集群情况下：这个代码是有问题，当多个线程来访问这个代码的时候会出现accessToken被覆盖的情况，我们目前没有根据accessToken失效后来再次刷新accessToken，而是怎么规避当多线程访问的时候，只有一个线程去设置缓存。由于之前看过一本redis运维相关的书籍提到过redis可以实现分布式锁解决访问共享资源的时候不会出现脏读。<br>修改后 将代码修改如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getAccessToken</span><span class="params">(String appId, String appSecret)</span> </span>&#123;</div><div class="line">		<span class="comment">// reids中 获取 accessToken</span></div><div class="line">		String accessToken = JedisUtils.get(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">		<span class="comment">// 如果accessToken 为空 则开始重构缓存</span></div><div class="line">		<span class="keyword">if</span> (StringUtils.isBlank(accessToken)) &#123;</div><div class="line">			<span class="comment">// 只允许一个线程设置缓存 使用setnx 并设置过期时间</span></div><div class="line">			String mutexKey = <span class="string">"mutex:Key:"</span>.concat(appId.concat(ACCESSTOKENSUFFIX));</div><div class="line">			<span class="comment">// 获取锁成功</span></div><div class="line">			<span class="keyword">if</span> (JedisUtils.setnx(mutexKey, mutexKey)) &#123;</div><div class="line">				<span class="comment">// 获取 accessToken</span></div><div class="line">				String response = HttpUtil.doGet(ACCESSTOKENURL.replace(<span class="string">"APPID"</span>, appId).replace(<span class="string">"APPSECRET"</span>, appSecret));</div><div class="line">				WebChatAccessToken token = JsonUtils.decode(response, WebChatAccessToken.class);</div><div class="line">				<span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</div><div class="line">					<span class="comment">// 设置accessToken缓存 且 缓存一个钟</span></div><div class="line">					JedisUtils.setex(appId.concat(ACCESSTOKENSUFFIX), token.getAccess_token(), <span class="number">3600</span>);</div><div class="line">					<span class="comment">// 删除mutexKey 当accessToken过期时 可以继续重构缓存</span></div><div class="line">					JedisUtils.del(mutexKey);</div><div class="line">					<span class="keyword">return</span> token.getAccess_token();</div><div class="line">				&#125;</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				<span class="comment">// 获取锁失败</span></div><div class="line">				<span class="keyword">try</span> &#123;</div><div class="line">					<span class="comment">// 休息50毫秒后重试</span></div><div class="line">					Thread.sleep(<span class="number">50</span>);</div><div class="line">					getAccessToken(appId, appSecret);</div><div class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">					logger.error(<span class="string">"error message &#123;&#125;"</span>, e);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> accessToken;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<p>修改后不会出现accessToken被覆盖的情况。主要是通过redis的setnx来模拟分布式锁来处理。看下setnx的简单介绍如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * SETNX works exactly like &#123;<span class="doctag">@link</span> #set(String, String) SET&#125; with the only difference that if the</div><div class="line">  * key already exists no operation is performed. SETNX actually means "SET if Not eXists".</div><div class="line">  * &lt;p&gt;</div><div class="line">  * Time complexity: O(1)</div><div class="line">  * <span class="doctag">@param</span> key</div><div class="line">  * <span class="doctag">@param</span> value</div><div class="line">  * <span class="doctag">@return</span> Integer reply, specifically: 1 if the key was set 0 if the key was not set</div><div class="line">  */</div></pre></td></tr></table></figure>
-<p>分布式锁目前实现有 zookeeper、redis等实现方案，但原理都是类似，就是利用一个标识来模拟锁，锁的释放和获取都是通过标识来实现。回头将redis分布式锁封装成工具方便同事使用。O(∩_∩)O哈哈~</p>
-<p>不过上面代码也有个缺陷就是 redis服务挂掉的话，相当于没有锁。所以最好使用主从+哨兵 为了高可用。</p>
+        <p>windows7  单机配置Kafka，最近准备学习消息队列相关知识，选择了Apache的kafka，以下是我搭建环境的过程。</p>
+<a id="more"></a>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>官网下载<a href="http://kafka.apache.org/downloads" target="_blank" rel="external">kafka下载</a></p>
+<p><img src="/img/downloadkafka.png" alt=""></p>
+<p>我本地使用的版本是kafka_2.10-0.10.2.0下载下来后放到某一盘符 我是在D盘新建一个文件夹zk_kafka把文件解压到此如下图所示</p>
+<p><img src="/img/localkafkadir.png" alt=""></p>
+<p>进入kafka目录我们可以发现 此版本的kafka已集成了zookeeper所以我们无需再另外单独下载zookeeper具体如下图所示</p>
+<p><img src="/img/kafkamaindir.png" alt=""></p>
+<p><img src="/img/kafkabindir.png" alt=""></p>
+<p>由于我是在windows上搭建所以等会我们就是用bin/windows下的bat</p>
+<p><img src="/img/kafkabinwindows.png" alt=""></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="修改zookeeper配置文件"><a href="#修改zookeeper配置文件" class="headerlink" title="修改zookeeper配置文件"></a>修改zookeeper配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录</p>
+<p><img src="/img/kafkazookeeperconfig.png" alt=""></p>
+<p>修改datadir保存默认端口2181</p>
+<p><img src="/img/zookeeperconfig.png" alt=""></p>
+<h3 id="修改kafka-server配置文件"><a href="#修改kafka-server配置文件" class="headerlink" title="修改kafka-server配置文件"></a>修改kafka-server配置文件</h3><p>进入kafka_2.10-0.10.2.0/config目录kafkaconfig.png</p>
+<p><img src="/img/kafkaconfig.png" alt=""></p>
+<p>修改log.dirs</p>
+<p><img src="/img/kafkaserverconfig.png" alt=""></p>
+<h3 id="producer和consumer配置文件"><a href="#producer和consumer配置文件" class="headerlink" title="producer和consumer配置文件"></a>producer和consumer配置文件</h3><p>如果没有改动zookeeper端口无需修改配置文件 我们就默认使用它的配置文件无需修改</p>
+<h3 id="启动zookeeper"><a href="#启动zookeeper" class="headerlink" title="启动zookeeper"></a>启动zookeeper</h3><p>进入kafka_2.10-0.10.2.0我本地使用的 git bash 使用windows7系统自带的命令可以。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties</div></pre></td></tr></table></figure>
+<p>如下如所示</p>
+<p><img src="/img/startzookeeper.png" alt=""></p>
+<p>回车 执行 如下图所示</p>
+<p><img src="/img/startedzookeeper.png" alt=""></p>
+<h3 id="启动kafka"><a href="#启动kafka" class="headerlink" title="启动kafka"></a>启动kafka</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-server-start.bat ./config/server.properties</div></pre></td></tr></table></figure>
+<p>如下如所示</p>
+<p><img src="/img/startkafka.png" alt=""></p>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedkafka.png" alt=""></p>
+<p>启动kafka和zookeeper后 会根据刚才配置文件设置的产生文件夹</p>
+<p>如下如所示</p>
+<p><img src="/img/startedcreatedir.png" alt=""></p>
+<h3 id="创建topic"><a href="#创建topic" class="headerlink" title="创建topic"></a>创建topic</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">2</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/createdtopic.png" alt=""></p>
+<h3 id="启动consumer客户端"><a href="#启动consumer客户端" class="headerlink" title="启动consumer客户端"></a>启动consumer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-consumer.bat --zookeeper localhost:<span class="number">2181</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedconsumer.png" alt=""></p>
+<h3 id="启动producer客户端"><a href="#启动producer客户端" class="headerlink" title="启动producer客户端"></a>启动producer客户端</h3><p>进入kafka_2.10-0.10.2.0 输入命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/windows/kafka-console-producer.bat --broker-list localhost:<span class="number">9092</span> --topic test.topic</div></pre></td></tr></table></figure>
+<p>回车执行如下如所示</p>
+<p><img src="/img/startedproducer.png" alt=""></p>
+<p>到此有四个命令窗口 分别为 zookeeper 、kafka、consumer、producer</p>
+<p><img src="/img/allcmd.png" alt=""></p>
+<p>在producer窗口输入helloworld同时在consumer中就能看到</p>
+<p>如下图所示</p>
+<p><img src="/img/helloworld.png" alt=""></p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>到此kafka环境搭建完毕。</p>
 
       
     </div>
@@ -431,7 +497,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/redis/" rel="tag"># redis</a>
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
           
         </div>
       
@@ -444,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/20/swagger2/" rel="next" title="swagger 二  swagger常用注解">
-                <i class="fa fa-chevron-left"></i> swagger 二  swagger常用注解
+              <a href="/2017/10/13/swagger1/" rel="next" title="swagger 一 swagger与spring集成">
+                <i class="fa fa-chevron-left"></i> swagger 一 swagger与spring集成
               </a>
             
           </div>
@@ -454,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/13/swagger1/" rel="prev" title="swagger 一 swagger与spring集成">
-                swagger 一 swagger与spring集成 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/17/other/" rel="prev" title="the one">
+                the one <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -526,8 +594,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -627,6 +704,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改zookeeper配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">修改zookeeper配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改kafka-server配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">修改kafka-server配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#producer和consumer配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">producer和consumer配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动zookeeper"><span class="nav-number">2.4.</span> <span class="nav-text">启动zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动kafka"><span class="nav-number">2.5.</span> <span class="nav-text">启动kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建topic"><span class="nav-number">2.6.</span> <span class="nav-text">创建topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动consumer客户端"><span class="nav-number">2.7.</span> <span class="nav-text">启动consumer客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动producer客户端"><span class="nav-number">2.8.</span> <span class="nav-text">启动producer客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
