@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="collection," />
+  <meta name="keywords" content="tcp,ip," />
 
 
 
@@ -102,19 +102,21 @@
 
 
 
-<meta name="description" content="先贴张整体的关联图">
-<meta name="keywords" content="collection">
+<meta name="description" content="tcp协议用来规范传输规则，对应着传输层。tcp/ip一般放在一起来讲，不过它们是两个不同的协议，所起的作用也不一样，ip协议是用来查找地址，对应网际层，ip负责找到地址，具体的传输交给tcp来完成。">
+<meta name="keywords" content="tcp,ip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="集合">
-<meta property="og:url" content="https://swqwer.github.io/2015/05/11/集合/index.html">
+<meta property="og:title" content="tcp三次握手和四次挥手">
+<meta property="og:url" content="https://swqwer.github.io/2017/11/30/tcp三次握手与四次挥手/index.html">
 <meta property="og:site_name" content="tryMore">
-<meta property="og:description" content="先贴张整体的关联图">
-<meta property="og:image" content="https://swqwer.github.io/img/javacollection.png">
-<meta property="og:updated_time" content="2017-05-11T09:58:18.727Z">
+<meta property="og:description" content="tcp协议用来规范传输规则，对应着传输层。tcp/ip一般放在一起来讲，不过它们是两个不同的协议，所起的作用也不一样，ip协议是用来查找地址，对应网际层，ip负责找到地址，具体的传输交给tcp来完成。">
+<meta property="og:image" content="https://swqwer.github.io/img/tcp-1.png">
+<meta property="og:image" content="https://swqwer.github.io/img/tcp-2.png">
+<meta property="og:image" content="https://swqwer.github.io/img/tcp-3.png">
+<meta property="og:updated_time" content="2017-12-21T12:48:18.927Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="集合">
-<meta name="twitter:description" content="先贴张整体的关联图">
-<meta name="twitter:image" content="https://swqwer.github.io/img/javacollection.png">
+<meta name="twitter:title" content="tcp三次握手和四次挥手">
+<meta name="twitter:description" content="tcp协议用来规范传输规则，对应着传输层。tcp/ip一般放在一起来讲，不过它们是两个不同的协议，所起的作用也不一样，ip协议是用来查找地址，对应网际层，ip负责找到地址，具体的传输交给tcp来完成。">
+<meta name="twitter:image" content="https://swqwer.github.io/img/tcp-1.png">
 
 
 
@@ -142,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="https://swqwer.github.io/2015/05/11/集合/"/>
+  <link rel="canonical" href="https://swqwer.github.io/2017/11/30/tcp三次握手与四次挥手/"/>
 
 
 
 
 
-  <title> 集合 | tryMore </title>
+  <title> tcp三次握手和四次挥手 | tryMore </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -277,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2015/05/11/集合/">
+    <link itemprop="mainEntityOfPage" href="https://swqwer.github.io/2017/11/30/tcp三次握手与四次挥手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain Army">
@@ -298,7 +300,7 @@
             
             
               
-                集合
+                tcp三次握手和四次挥手
               
             
           </h1>
@@ -313,8 +315,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-11T17:32:59+08:00">
-                2015-05-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-30T21:34:05+08:00">
+                2017-11-30
               </time>
             
 
@@ -336,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
                   </a>
                 </span>
 
@@ -353,7 +355,7 @@
 
           
           
-             <span id="/2015/05/11/集合/" class="leancloud_visitors" data-flag-title="集合">
+             <span id="/2017/11/30/tcp三次握手与四次挥手/" class="leancloud_visitors" data-flag-title="tcp三次握手和四次挥手">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -381,11 +383,59 @@
       
 
       
-        <p>先贴张整体的关联图</p>
-<p><img src="/img/javacollection.png" alt=""></p>
+        <p>tcp协议用来规范传输规则，对应着传输层。tcp/ip一般放在一起来讲，不过它们是两个不同的协议，所起的作用也不一样，ip协议是用来查找地址，对应网际层，ip负责找到地址，具体的传输交给tcp来完成。</p>
 <a id="more"></a>
-<h1 id="三大接口List-Set-Map"><a href="#三大接口List-Set-Map" class="headerlink" title="三大接口List Set Map"></a>三大接口List Set Map</h1><p>java集合不仅我们工作中使用频繁,而且在面试中经常会被问到相关问题,深入了解它是非常有必要。</p>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>在传输之前会进行三次沟通，一般称为“三次握手”，理解这个过程需要理解tcp中的两个序号和三个标志位：</p>
+<h4 id="seq"><a href="#seq" class="headerlink" title="seq"></a>seq</h4><p>seq-sequence number，表示所传数据的序号，tcp传输时每一个字节都有一个序号，发送数据时会将数据的第一个序号发送给对方，接收方会按序号检查是否接受完整了，如果没有接受完整就需要重新传送，这样就可以保证数据的完整性。</p>
+<h4 id="ack"><a href="#ack" class="headerlink" title="ack"></a>ack</h4><p>ack-acknoledgement number，表示确认号，接收端用它来给发送端反馈已经成功接受到的数据信息的，它的值为希望接收的下一个数据包起始序号，也就是ack值所代表的序号前面的数据已经成功接收到了。</p>
+<h4 id="ACK"><a href="#ACK" class="headerlink" title="ACK"></a>ACK</h4><p>表示确认位，只要当ACK=1的时候ack才起作用，正常通信时ACK为1，第一次发起请求时ACK=0，因为没有需要确认接受的数据。</p>
+<h4 id="SYN"><a href="#SYN" class="headerlink" title="SYN"></a>SYN</h4><p>表示同步位，用于在建议连接时同步序号，刚开始建立连接时并没有历史接收的数据，所以ack没办法设置，这时候按照正常的机制就无法运行了，SYN的作用就是来解决这个问题，当接收端接收到SYN=1的报文时就会直接将ack设置为接收到的seq+1的值，注意这里的值并不是校验后设置的，而是根据SYN直接设置的，这样正常的机制就可以正常运行了。需要注意，SYN会在前两次握手时都是1，这是因为通信的双方的ack都需要设置一个初始值。</p>
+<h4 id="FIN"><a href="#FIN" class="headerlink" title="FIN"></a>FIN</h4><p>表示终止位，用来在数据传输完毕后释放连接。</p>
+<p>整个握手过程如下：</p>
+<p><img src="/img/tcp-1.png" alt=""></p>
+<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><p>四次挥手过程如下：</p>
+<p><img src="/img/tcp-2.png" alt=""></p>
+<p>这里的四次挥手中画的是客户端提出的终止连接，在实际传输过程中也有可能是服务端提出终止连接，他们的处理过程都是一样。tcp的传输时双全工模式，也就是说传输的双方是对等的，可以同属传输数据，所以无论连接还是关闭都需要双方同时进行。三次握手中前两次可以保证服务端可以正常接收并返回请求，后两次可以保证客户端可以正确接收并返回请求，而且在三次握手的过程还使用SYN标志初始化了双方的ack值，四次挥手就是双方分别发送FIN标志来关闭连接并让对方确认。</p>
+<h3 id="三次四次状态转换图"><a href="#三次四次状态转换图" class="headerlink" title="三次四次状态转换图"></a>三次四次状态转换图</h3><p><img src="/img/tcp-3.png" alt=""></p>
+<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><p>​       三次握手和四次挥手保证了连接的可靠性，不过这种模式也有它的缺点，首先是在传输效率上会比较低，另外三次握手的过程中客户端需要发送两次数据才可以建立连接，这种特性可能会被一些人利用，比如：发出第一次握手(并接收到第二次握手)后就不回应第三次握手了，这时候服务端会以为是第二次握手的数据在传输过程中丢失了，然后重新发送第二次握手，默认情况下回一直发送五次，如果发送五次后还不收到第三次握手则会丢弃请求，如果是个别请求当然没有啥影响，如果是大量的这样的请求就比较麻烦，这时候服务器就会浪费大量的资源甚至可能导致无法处理正常的请求，这是DDOS攻击中的SYN Flood攻击，对于这种攻击的一种方式是设置第二次请求的重发次数(tcp_synack_retries)，不过重发的次数大小也可能导致正常的请求因为网络没有收到第二次握手而连接失败的情况，具体设置多少合适根据实际的情况而定。当然有钱的话也可以硬防。</p>
+<p>​      用于传输层的协议除了tcp还有udp，他们的区别主要在于是tcp是有连接的，udp是没有连接的，也就是tcp协议是在沟通好后才会传数据，而udp协议是拿到地址后就传了，这样产生的结果就是tcp协议传输的数据更可靠，而udp传输的速度更快。形象的例子：tcp就像打电话，需要拨通对方号码才能通信，而udp就像是使用对讲机，拿起来就可以直接讲话。</p>
+<p>tcp/ip协议只是一套规则，并不能具体的工作，socket是tcp/ip协议的一个具体实现。</p>
+<p>我们所熟悉的应用层http协议底层的传输协议就是使用可靠的tcp/ip协议。</p>
+<h3 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h3><h4 id="为什么建立连接需要三次握手"><a href="#为什么建立连接需要三次握手" class="headerlink" title="为什么建立连接需要三次握手"></a>为什么建立连接需要三次握手</h4><p>解：防止失效的连接请求报文段被服务端接收，从而产生错误。tcp是全双工的，客户端即可以发送消息给服务端，也能接收服务端的消息。</p>
+<p><strong>第一次握手</strong><br>客户端向服务端发送连接请求报文段。该报文段的头部中SYN=1，ACK=0，seq=x。请求发送后，客户端便进入SYN-SENT状态。</p>
+<ul>
+<li>PS1：SYN=1，ACK=0表示该报文段为连接请求报文。</li>
+<li>PS2：x为本次TCP通信的字节流的初始序号。<br>TCP规定：SYN=1的报文段不能有数据部分，但要消耗掉一个序号。</li>
+</ul>
+<p><strong>第二次握手</strong><br>服务端收到连接请求报文段后，如果同意连接，则会发送一个应答：SYN=1，ACK=1，seq=y，ack=x+1。<br>该应答发送完成后便进入SYN-RCVD状态。</p>
+<ul>
+<li>PS1：SYN=1，ACK=1表示该报文段为连接同意的应答报文。</li>
+<li>PS2：seq=y表示服务端作为发送者时，发送字节流的初始序号。</li>
+<li>PS3：ack=x+1表示服务端希望下一个数据报发送序号从x+1开始的字节。</li>
+</ul>
+<p><strong>第三次握手</strong><br>当客户端收到连接同意的应答后，还要向服务端发送一个确认报文段，表示：服务端发来的连接同意应答已经成功收到。<br>该报文段的头部为：ACK=1，seq=x+1，ack=y+1。<br>客户端发完这个报文段后便进入ESTABLISHED状态，服务端收到这个应答后也进入ESTABLISHED状态，此时连接的建立完成。</p>
+<p>举个摘自网上的例子很生动形象：</p>
+<p>三次握手：<br>“喂，你听得到吗？”<br>“我听得到呀，你听得到我吗？”<br>“我能听到你，今天balabala……”</p>
+<p>两次握手：<br>“喂，你听得到吗？”<br>“我听得到呀”<br>“喂喂，你听得到吗？”<br>“草，我听得到呀！！！！”<br>“你TM能不能听到我讲话啊！！喂！”<br>“……”</p>
+<p>四次握手：<br>“喂，你听得到吗？”<br>“我听得到呀，你听得到我吗？”<br>“我能听到你，你能听到我吗？”<br>“……不想跟傻逼说话”</p>
+<h4 id="为什么断开连接需要四次挥手"><a href="#为什么断开连接需要四次挥手" class="headerlink" title="为什么断开连接需要四次挥手"></a>为什么断开连接需要四次挥手</h4><p>解：我们知道，TCP连接是双向的，因此在四次挥手中，前两次挥手用于断开一个方向的连接，后两次挥手用于断开另一方向的连接。</p>
+<p><strong>第一次挥手</strong><br>若A认为数据发送完成，则它需要向B发送连接释放请求。该请求只有报文头，头中携带的主要参数为：<br>FIN=1，seq=u。此时，A将进入FIN-WAIT-1状态。</p>
+<ul>
+<li>PS1：FIN=1表示该报文段是一个连接释放请求。</li>
+<li>PS2：seq=u，u-1是A向B发送的最后一个字节的序号。</li>
+</ul>
+<p><strong>第二次挥手</strong><br>B收到连接释放请求后，会通知相应的应用程序，告诉它A向B这个方向的连接已经释放。此时B进入CLOSE-WAIT状态，并向A发送连接释放的应答，其报文头包含：<br>ACK=1，seq=v，ack=u+1。</p>
+<ul>
+<li>PS1：ACK=1：除TCP连接请求报文段以外，TCP通信过程中所有数据报的ACK都为1，表示应答。</li>
+<li>PS2：seq=v，v-1是B向A发送的最后一个字节的序号。</li>
+<li>PS3：ack=u+1表示希望收到从第u+1个字节开始的报文段，并且已经成功接收了前u个字节。</li>
+</ul>
+<p>A收到该应答，进入FIN-WAIT-2状态，等待B发送连接释放请求。</p>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。但B到A方向的连接仍然存在，B可以继续向A发送数据。</p>
+<p><strong>第三次挥手</strong><br>当B向A发完所有数据后，向A发送连接释放请求，请求头：FIN=1，ACK=1，seq=w，ack=u+1。B便进入LAST-ACK状态。</p>
+<p><strong>第四次挥手</strong><br>A收到释放请求后，向B发送确认应答，此时A进入TIME-WAIT状态。该状态会持续2MSL时间，若该时间段内没有B的重发请求的话，就进入CLOSED状态，撤销TCB。当B收到确认应答后，也便进入CLOSED状态，撤销TCB。</p>
+<p><strong>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？</strong><br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+
       
     </div>
 
@@ -430,7 +480,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/collection/" rel="tag"># collection</a>
+            <a href="/tags/tcp/" rel="tag"># tcp</a>
+          
+            <a href="/tags/ip/" rel="tag"># ip</a>
           
         </div>
       
@@ -443,18 +495,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/12/Java同步器之CountDownLatch/" rel="next" title="Java同步器之CountDownLatch">
-                <i class="fa fa-chevron-left"></i> Java同步器之CountDownLatch
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/04/28/字符串/" rel="prev" title="字符串">
-                字符串 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/02/Cas实战系列三相关问题/" rel="prev" title="Cas实战系列三相关问题">
+                Cas实战系列三相关问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -645,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三大接口List-Set-Map"><span class="nav-number">1.</span> <span class="nav-text">三大接口List Set Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">1.1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">1.2.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-number">1.3.</span> <span class="nav-text">Map</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">1.</span> <span class="nav-text">三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#seq"><span class="nav-number">1.1.</span> <span class="nav-text">seq</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ack"><span class="nav-number">1.2.</span> <span class="nav-text">ack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ACK"><span class="nav-number">1.3.</span> <span class="nav-text">ACK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SYN"><span class="nav-number">1.4.</span> <span class="nav-text">SYN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FIN"><span class="nav-number">1.5.</span> <span class="nav-text">FIN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次四次状态转换图"><span class="nav-number">3.</span> <span class="nav-text">三次四次状态转换图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关"><span class="nav-number">4.</span> <span class="nav-text">相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面试问题"><span class="nav-number">5.</span> <span class="nav-text">面试问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么建立连接需要三次握手"><span class="nav-number">5.1.</span> <span class="nav-text">为什么建立连接需要三次握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么断开连接需要四次挥手"><span class="nav-number">5.2.</span> <span class="nav-text">为什么断开连接需要四次挥手</span></a></li></ol></li></ol></div>
             
 
           </div>
